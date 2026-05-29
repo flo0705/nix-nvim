@@ -1,7 +1,11 @@
+require('remap')
+
 vim.loader.enable()
 
 local cmd = vim.cmd
 local opt = vim.o
+local keymap = vim.keymap
+
 
 -- <leader> key. Defaults to `\`. Some people prefer space.
 -- The default leader is '\'. Some people prefer <space>. Uncomment this if you do, too.
@@ -14,27 +18,79 @@ local opt = vim.o
 opt.path = vim.o.path .. '**'
 
 opt.number = true
-opt.relativenumber = true
-opt.cursorline = true
 opt.lazyredraw = true
 opt.showmatch = true -- Highlight matching parentheses, etc
-opt.incsearch = true
-opt.hlsearch = true
 
 opt.spell = true
 opt.spelllang = 'en'
 
-opt.expandtab = true
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.shiftwidth = 2
 opt.foldenable = true
 opt.history = 2000
 opt.nrformats = 'bin,hex' -- 'octal'
+opt.cmdheight = 0
+
+opt.guicursor = ""
+
+opt.nu = true
+opt.relativenumber = true
+
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+
+opt.smartindent = true
+
+opt.wrap = false
+
+opt.swapfile = false
+opt.backup = false
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 opt.undofile = true
+
+opt.hlsearch = true
+opt.incsearch = true
+keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+opt.termguicolors = true
+
+opt.scrolloff = 8
+opt.signcolumn = "yes"
+
+opt.updatetime = 50
+
+opt.colorcolumn = "80"
+
+opt.clipboard = "unnamedplus"
+-- ase-insensitive searching UNLESS \C or one or more capital letters in the search term
+opt.ignorecase = true
+opt.smartcase = true
+
 opt.splitright = true
 opt.splitbelow = true
-opt.cmdheight = 0
+
+opt.list = true
+vim.opt.listchars = { tab = "| ", trail = "·", nbsp = "␣" }
+
+-- Preview substitutions live, as you type!
+opt.inccommand = "split"
+
+-- Show which line your cursor is on
+opt.cursorline = true
+
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
+
+
 
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 opt.colorcolumn = '100'
