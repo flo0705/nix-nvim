@@ -43,8 +43,8 @@
           # Tools for Lua and Nix development, useful for editing files in this repo
           lua-language-server
           nil
-          nodePackages.typescript-language-server
-          nodePackages.typescript
+          typescript-language-server
+          typescript
           stylua
           luajitPackages.luacheck
           nvim-dev
